@@ -1,0 +1,394 @@
+/* @charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=zocial);
+
+[class*="zocial-"]:before {
+  font-family: 'zocial', sans-serif;
+} */
+
+@charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+@font-face {
+    font-family: 'Bebas';
+    src: url('fonts/BEBAS___-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
+}
+
+body {
+    background: #2c3338;
+    color: #606468;
+    font: 87.5%/1.5em 'Open Sans', sans-serif;
+    margin: 0;
+    /* background-image: url(../img/bg.jpg); */
+    background-size: cover;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#music_festival::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.clrfix {
+    display: block;
+    clear: both;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
+    color: #d3d6ca;
+    letter-spacing: 0.1em;
+    font-family: 'Bebas', 'Open Sans', Arial, sans-serif;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 2.5em;
+    background-color: rgb(65, 182, 151);
+    color: white;
+    line-height: 1;
+    padding: 5px 10px 8px 10px;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+.error {
+    color: #c82e13;
+    line-height: 1.5;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    border: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+after {
+    clear: both;
+}
+
+#music_festival {
+    margin: 20px auto;
+    width: 100%;
+}
+
+#music_festival form {
+    margin: 20px auto;
+    padding: 22px 22px 22px 22px;
+    border-radius: 5px;
+    background: #282e33;
+    border-top: 3px solid #434a52;
+    border-bottom: 3px solid #434a52;
+}
+
+#music_festival form span {
+    display: block;
+    margin-left: 25px;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+#music_festival form input,
+#music_festival form select {
+    background-color: #3b4148;
+    border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    height: 50px;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#music_festival form select {
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#music_festival form input[type="button"] {
+    background: rgb(65, 182, 151);
+    border: 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#music_festival form input[type="button"]:hover {
+    background: #318b72;
+}
+
+.info {
+    color: white;
+    letter-spacing: 1px;
+    font-size: 1.25em;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+footer {
+    margin: 50px 0 0 0;
+    padding: 25px 0;
+    text-align: center;
+    width: 100%;
+    color: white;
+    background-color: #282e33;
+    border-top: 3px solid #434a52;
+    background-image: url(../img/airplane.png);
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: #75C6B4;
+    text-decoration: none;
+}
+
+#band,
+#program,
+#createFestival #createProgram {
+    width: 48%;
+}
+
+#band,
+#createFestival,
+#createProgram,
+#createBand {
+    float: left;
+}
+
+#program {
+    float: right;
+}
+
+#music_festival form select {
+    display: block;
+    width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        width: 720px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 530px;
+    }
+
+    #band,
+    #program,
+    #createFestival,
+    #createProgram {
+        float: none;
+        clear: both;
+        display: block;
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 552px) {
+    .container {
+        width: 100%;
+    }
+
+    #band,
+    #program,
+    #createFestival,
+    #createProgram {
+        float: none;
+        clear: both;
+        display: block;
+        width: 80%;
+    }
+}
+
+#festival {
+    display: inline-block;
+    margin-top: 2em;
+    margin-left: 5em;
+}
+
+#program {
+    margin-top: 2.5em;
+}
+
+/* .hideme {
+    display: none;
+}
+
+div.table-title {
+    display: block;
+    margin: auto;
+    max-width: 720px;
+    padding: 5px;
+    width: 100%;
+}
+
+.table-title h3 {
+    color: #fafafa;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    margin: 0 0 25px 0;
+}
+
+.table-fill {
+    background: white;
+    border-radius: 3px;
+    border-collapse: collapse;
+    margin: 0 auto;
+    max-width: 720px;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+}
+
+th {
+    color: #D5DDE5;
+    background: #282e33;
+    border-bottom: 4px solid #434a52;
+    border-right: 1px solid #343a45;
+    font-weight: 100;
+    padding: 24px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+th:first-child {
+    border-top-left-radius: 3px;
+}
+
+th:last-child {
+    border-top-right-radius: 3px;
+    border-right: none;
+}
+
+tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color: #666B85;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:hover td {
+    background: rgb(65, 182, 151);
+    color: #FFFFFF;
+    border-top: 1px solid #22262e;
+}
+
+tr:first-child {
+    border-top: none;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+tr:nth-child(odd) td {
+    background: #EBEBEB;
+}
+
+tr:nth-child(odd):hover td {
+    background: #318b72;
+}
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 3px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 3px;
+}
+
+td {
+    background: #FFFFFF;
+    padding: 20px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 300;
+    font-size: 18px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+    border-right: 0px;
+}
+
+th.text-left {
+    text-align: left;
+}
+
+th.text-center {
+    text-align: center;
+}
+
+th.text-right {
+    text-align: right;
+}
+
+td.text-left {
+    text-align: left;
+}
+
+td.text-center {
+    text-align: center;
+}
+
+td.text-right {
+    text-align: right;
+} */
+
+fieldset {
+    border: 0px solid gray;
+
+}
