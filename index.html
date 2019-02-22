@@ -16,8 +16,8 @@
             <form autocomplete="off">
                 <fieldset id="band">
                     <legend id="createBand" class="info"></legend>
-                    <h2>Create Band</h2>
-                    <input type="text" id="bandName" placeholder="Band Name" required>
+                    <h2>Add Band</h2>
+                    <input type="text" id="bandName" placeholder="Band Name">
                     <select name="Music Genre" id="musicGenre">
                         <option value="" disabled selected>Select genre</option>
                         <option value="">Electronic</option>
@@ -26,37 +26,45 @@
                         <option value="">Pop</option>
                         <option value="">Rock</option>
                     </select>
-                    <input type="text" id="performanceDuration" placeholder="Performance Duration" required>
+                    <input type="text" id="performanceDuration" placeholder="Performance Duration">
+                    <div id="bandError" class="error"></div>
                     <input type="button" id="btnBand" value="Create Band">
-                </fieldset>
+                </fieldset> <!-- onclick="createBand() -->
                 <fieldset id="program">
                     <legend id="createProgram" class="info"></legend>
                     <h2>Create Program</h2>
-                    <input type="date" id="performanceDate" placeholder="Performance Date" required>
-                    <select name="Tickets" id="tickets">
-                        <option value="" disabled selected>Select tickets</option>
-                        <option value="">One day</option>
-                        <option value="">Two days</option>
-                        <option value="">Three days</option>
-                        <option value="">Four days</option>
+                    <input type="date" id="performanceDate">
+                    <input type="button" id="btnProgram" value="Create Program">
+                </fieldset>
+                <fieldset id="addBand">
+                    <legend id="addBandToProgram" class="info"></legend>
+                    <h2>Add Band to Program</h2>
+                    <select name="Select Program" id="selectProgram">
+                        <option value="" disabled selected>Select program</option>
                     </select>
-                    <input type="button" id="btnPerfDate" value="Create Program">
+                    <select name="Add Band to Program" id="bands">
+                        <option value="" disabled selected>Select band</option>
+                    </select>
+                    <input type="button" id="btnAddBandToProgram" value="Add Band to Program">
                 </fieldset>
                 <fieldset id="festival">
                     <legend id="createFestival" class="info"></legend>
                     <h2>Create Festival</h2>
+                    <select name="Add Program to Festival" id="programToFestival">
+                        <option value="" disabled selected>Select program</option>
+                    </select>
                     <input type="text" id="festivalName" placeholder="Festival Name">
-                    <input type="text" id="Country" placeholder="Country">
-                    <input type="text" id="City" placeholder="City">
+                    <input type="text" id="country" placeholder="Country">
+                    <input type="text" id="city" placeholder="City">
                     <input type="button" id="btnFestival" value="Create Festival">
                 </fieldset>
             </form>
         </div>
     </div>
     <footer>
-            <p>Created by
-                <a href="#" target="_blank">Tamara Jovanovic</a> | &copy; 2019.</p>
-        </footer>
+        <p>Created by
+            <a href="#" target="_blank">Tamara Jovanovic</a> | &copy; 2019.</p>
+    </footer>
     <script src="js/main.js"></script>
 </body>
 

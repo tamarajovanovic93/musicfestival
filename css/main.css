@@ -75,10 +75,10 @@ h1 {
 }
 
 .error {
-    color: #c82e13;
+    color:rgb(65, 182, 151);;
     line-height: 1.5;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: bold;
+    margin-bottom: 5px;
+   /*  font-weight: bold; */
 }
 
 input {
