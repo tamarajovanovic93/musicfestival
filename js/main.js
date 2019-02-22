@@ -1,3 +1,5 @@
+'use strict';
+
 const dataController = (function () {
     const data = {
         bands: [],
@@ -89,10 +91,6 @@ const UIController = (function () {
         return result;
     }
 
-    /* dodam bend u listu (select element) createElementOption u DOM-u appendChild u selectu;
-       .value = naziv benda
-       */
-
     function addBandToList(band) {
         console.log("Band name is: " + band.bandName);
         const newListElement = document.createElement("option");
@@ -132,13 +130,12 @@ const UIController = (function () {
     }
 
     return {
-        getInput: collectInput, // vrednosti input polja
+        getInput: collectInput, // input fields value
         addBandToList: addBandToList,
         addProgramToList: addProgramToList,
-        getDOMStrings: getDOMStrings, // putanje
+        getDOMStrings: getDOMStrings, // paths
         clearFormInputs: clearFormInputs,
         showError: showError,
-        /*    displayTotalLength: displayTotalLength*/
     };
 })();
 
@@ -204,68 +201,3 @@ const mainController = (function (dataCtrl, UICtrl) {
 })(dataController, UIController);
 
 mainController.init();
-
-/* 'use strict'
-const bands, programs, festivals;
-
-bands = [];
-programs = [];
-festivals = [];
-
-const UIController = (function () {
-
-    const DOMStrings = {
-        inputBName: "bandName",
-        inputMGenre: "musicGenre",
-        inputPDuration: "performanceDuration",
-        buttonAddBand: 'btnBand',
-        formElement: 'form',
-    }
-});
-
-function collectInput() {
-    const bNameElement = document.getElementById(DOMStrings.inputBName);
-    const mGenreElement = document.getElementById(DOMStrings.inputMGenre);
-    const pDurationElement = document.getElementById(DOMStrings.inputPDuration);
-
-    const result = {
-        bName: bNameElement.value,
-        mGenre: mGenreElement.value,
-        pDuration: pDurationElement.value
-    }
-    return result;
-}
-
-function Band(bandName, musicGenre, performanceDuration) {
-    this.bandName = bandName;
-    this.musicGenre = musicGenre;
-    this.performanceDuration = performanceDuration;
-}
-
-function createBand(bandName, musicGenre, performanceDuration) {
-    const band = new Band(bandName, musicGenre, performanceDuration);
-
-    bands.push(band);
-    console.log(band);
-
-    return band;
-}
-
-function createProgram() {
-    const performanceDate = document.getElementById('performanceDate');
-    const tickets = document.getElementById('tickets');
-
-    const program = new Program(performanceDate, tickets);
-
-    programs.push(program);
-}
-
-function createFestival() {
-    const festivalName = document.getElementById('festivalName');
-    const country = document.getElementById('country');
-    const city = document.getElementById('city');
-
-    const festival = new Festival(festivalName, country, city);
-
-    festivals.push(festival);
-} */
