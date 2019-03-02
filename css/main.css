@@ -246,11 +246,26 @@ a:active {
     margin-left: 5em;
 }
 
-#program {
-    margin-top: 2.5em;
-}
-
 fieldset {
     border: 0px solid gray;
 
+}
+
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: rgb(65, 182, 151);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */
 }

@@ -16,8 +16,10 @@ const dataController = (function () {
     function addBand(bandName, musicGenre, performanceDuration) {
         var band = new Band(bandName, musicGenre, performanceDuration);
         data.bands.push(band);
-        console.log("Band Name is: " + band.bandName + ". Music genre is: " +
-            band.musicGenre + ". Performance duration is: " + band.performanceDuration + ".");
+        swal("New Band is added!", "Band Name is: " + band.bandName + ".\n Music genre is: " +
+            band.musicGenre + ".\n Performance duration is: " + band.performanceDuration + ".", "success", {
+                button: false,
+            });
         return band;
     }
 
@@ -28,7 +30,9 @@ const dataController = (function () {
     function addProgram(performanceDate) {
         var program = new Program(performanceDate);
         data.programs.push(program);
-        console.log("New program is created on a day: " + program.performanceDate)
+        swal("New program is created!", "\n" + program.performanceDate + "\n ", "success", {
+            button: false,
+        });
         return program;
     }
 
@@ -66,6 +70,7 @@ const UIController = (function () {
         const mGenreElement = document.getElementById(DOMStrings.inputMGenre);
         const mGenreOption = mGenreElement.options[mGenreElement.selectedIndex].text;
         const pDurationElement = document.getElementById(DOMStrings.inputPDuration);
+        const containerErrorElement = document.getElementById(DOMStrings.containerError).textContent;
         /* Program */
         const pDateElement = document.getElementById(DOMStrings.inputPDate);
         const selectProgramElement = document.getElementById(DOMStrings.inputSelectProgram);
@@ -80,6 +85,7 @@ const UIController = (function () {
             bName: bNameElement.value,
             mGenre: mGenreOption,
             pDuration: pDurationElement.value,
+            errorMsgContainer: containerErrorElement,
             pDate: pDateElement.value,
             selectProgramElement: selectProgramElement.value,
             addBandToProgram: addBandToProgramElement.value,
@@ -92,7 +98,6 @@ const UIController = (function () {
     }
 
     function addBandToList(band) {
-        console.log("Band name is: " + band.bandName);
         const newListElement = document.createElement("option");
         document.getElementById("bands").appendChild(newListElement);
         newListElement.textContent = band.bandName;
@@ -171,25 +176,31 @@ const mainController = (function (dataCtrl, UICtrl) {
             return;
         }
 
+
+
         // Add band to list
         const band = dataCtrl.addBand(input.bName, input.mGenre, input.pDuration);
 
         //3. Clear form inputs
         UICtrl.clearFormInputs();
 
-        //4. Add band to a list 
-        console.log("Now it should add a band to the list");
+        //4. Add band to a list
         UICtrl.addBandToList(band);
     }
 
     function ctrlAddProgram() {
         const input = UICtrl.getInput();
         const date = new Date(input.pDate);
-
         const program = dataCtrl.addProgram(date.toDateString());
+
+        UICtrl.clearFormInputs();
 
         // Add a program to Add Band to Program section
         UICtrl.addProgramToList(program);
+    }
+
+    function ctrlbtnAddBandToProgram() {
+        
     }
 
     return {
