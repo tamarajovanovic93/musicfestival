@@ -50,7 +50,7 @@ const dataController = (function () {
     function addProgram(day, band) {
         var program = new Program(day, band);
         data.programs.push(program);
-        swal("Band " + band.bandName + "will perform on " + day, "success");
+        swal("", "Band is added successfully!", "success");
         return program;
     }
 
@@ -172,14 +172,13 @@ const UIController = (function () {
     }
 
     function validateAddBandToFestival(input) {
-        var errorMessage = '';
-        if (!input.desiredDay || input.desiredDay == "Please select desired day" || input.desiredDay == "none") {
-            errorMessage = 'Please select day!';
-        } else if (!input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none") {
-            errorMessage = 'Please select band! ';
-        }
-        swal("", errorMessage, "warning");
-
+        // var errorMessage = '';
+        // if (!input.desiredDay || input.desiredDay == "Please select desired day" || input.desiredDay == "none") {
+        //     errorMessage = 'Please select day!';
+        // } else if (!input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none") {
+        //     errorMessage = 'Please select band! ';
+        // }
+        // swal("", errorMessage, "warning");
     }
 
     function validateFestivalData(input) {
@@ -235,7 +234,10 @@ const mainController = (function (dataCtrl, UICtrl) {
         document.getElementById(DOM.viewFestival).addEventListener("click", function () {
             const festivalDays = {};
 
-            dataCtrl.getPrograms.forEach(({ day, band }) => {
+            dataCtrl.getPrograms.forEach(({
+                day,
+                band
+            }) => {
                 if (!festivalDays[day]) {
                     festivalDays[day] = [];
                     festivalDays[day].push(band);
@@ -294,11 +296,11 @@ const mainController = (function (dataCtrl, UICtrl) {
 
     function ctrlAddProgram() {
         const input = UICtrl.getInput();
-        if (!input.desiredDay || !input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none" ||
-            input.desiredDay == "none" || input.desiredDay == "Please select desired day") {
-            return UICtrl.validateAddBandToFestival(input);
-        }
-
+        // if (!input.desiredDay || !input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none" ||
+        //     input.desiredDay == "none" || input.desiredDay == "Please select desired day") {
+        //     return UICtrl.validateAddBandToFestival(input);
+        // }
+        dataCtrl.addProgram(input.desiredDay, input.selectedBand);
         UICtrl.clearFormInputs();
     }
 
