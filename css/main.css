@@ -257,6 +257,10 @@ fieldset {
     background-color: rgb(65, 182, 151);
 }
 
+.swal-button:hover {
+    background-color: rgb(65, 182, 151) !important; 
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -269,3 +273,15 @@ input[type=number] {
     -moz-appearance: textfield;
     /* Firefox */
 }
+
+#programSection {
+    display: none;
+}
+
+#programSection.visible {
+    display: block;
+}
+
+input[type='date']::before {
+    content: attr(placeholder)
+  }
