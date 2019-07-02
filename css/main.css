@@ -137,7 +137,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-#music_festival form input[type="button"] {
+#music_festival form input[type="button"], .classy-btn {
     background: rgb(65, 182, 151);
     border: 0;
     width: 100%;

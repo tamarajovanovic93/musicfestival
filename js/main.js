@@ -54,11 +54,26 @@ const dataController = (function () {
         return program;
     }
 
+    function getBands() {
+        return data.bands;
+    }
+
+    function getFestivals() {
+        return data.festivals;
+    }
+
+    function getPrograms() {
+        return data.bands;
+    }
+
     /* Adding values in an array */
     const resultObj = {};
     resultObj.addFestival = addFestival;
     resultObj.addBand = addBand;
     resultObj.addProgram = addProgram;
+    resultObj.getPrograms = getPrograms;
+    resultObj.getFestivals = getFestivals;
+    resultObj.getBands = getBands;
     return resultObj;
 })();
 
@@ -78,8 +93,9 @@ const UIController = (function () {
         inputSelectDay: "selectFestivalDay",
         inputSelectBand: "bands",
         buttonAddProgram: "btnProgram",
-        buttonAddBandToFestival: "btnProgram"
-
+        buttonAddBandToFestival: "btnProgram",
+        viewFestival: "view-festival",
+        preview: "preview"
     };
 
     function handleFestivalDates() {
@@ -214,6 +230,44 @@ const mainController = (function (dataCtrl, UICtrl) {
         document.getElementById(DOM.buttonAddProgram).addEventListener("click", function () {
             console.log('CLICKED ON BUTTON TO ADD A NEW PROGRAM AND CALLING addProgram() FUNCTION');
             ctrlAddProgram();
+        });
+
+        document.getElementById(DOM.viewFestival).addEventListener("click", function () {
+            const festivalDays = {};
+
+            dataCtrl.getPrograms.forEach(({ day, band }) => {
+                if (!festivalDays[day]) {
+                    festivalDays[day] = [];
+                    festivalDays[day].push(band);
+                } else {
+                    festivalDays[day].push(band);
+                }
+            })
+
+            dataCtrl.getFestivals.forEach(festival => {
+                const preview = document.getElementById(DOM.preview);
+                preview.innerHTML = "";
+                const h2 = document.createElement("h2");
+                h2.innerText = `Welcome to ${festival.festivalName}!`;
+                preview.appendChild(h2);
+                const h6 = document.createElement("h6");
+                h6.innerText = `From ${festival.startDate} to ${festival.endDate} in ${festival.city}, ${festival.country}`;
+                preview.appendChild(h6);
+                Object.entries(festivalDays).forEach(([day, bands], index) => {
+                    const article = document.createElement("article");
+                    const dayHeading = document.createElement("h5");
+                    dayHeading.innerText = `Day ${index + 1} - ${day}:`;
+                    article.appendChild(dayHeading);
+                    const bandList = document.createElement("ul");
+                    bands.forEach(band => {
+                        const bandLi = document.createElement("li");
+                        bandLi.innerText = `Band: ${band.bandName}, genre:  ${band.musicGenre}, duration: ${band.performanceDuration}`;
+                        bandList.appendChild(bandLi);
+                    })
+                    article.appendChild(bandList);
+                    preview.appendChild(article);
+                });
+            })
         });
 
         UICtrl.handleFestivalDates();
