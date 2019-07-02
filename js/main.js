@@ -1,98 +1,127 @@
 'use strict';
 
+/* Function which manipulates with data */
 const dataController = (function () {
     const data = {
         bands: [],
         programs: [],
-        festivals: []
+        festivals: [],
+        startDate: null,
+        endDate: null
     };
 
+    function Festival(festivalName, country, city, startDate, endDate) {
+        this.festivalName = festivalName;
+        this.country = country;
+        this.city = city;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    function addFestival(festivalName, country, city, startDate, endDate) {
+        var festival = new Festival(festivalName, country, city, startDate, endDate);
+        data.festivals.push(festival);
+        swal("New festival is created!", "\n" + "Festival name is: " + festival.festivalName + "\n" + "\n" +
+            "It will be held in " + festival.city + ", " + festival.country + ".", "success");
+        return festival;
+    }
+
+    /* Object constructor */
     function Band(bandName, musicGenre, performanceDuration) {
         this.bandName = bandName;
         this.musicGenre = musicGenre;
         this.performanceDuration = performanceDuration;
     }
 
+    /* Object constructor */
     function addBand(bandName, musicGenre, performanceDuration) {
         var band = new Band(bandName, musicGenre, performanceDuration);
         data.bands.push(band);
         swal("New Band is added!", "Band Name is: " + band.bandName + ".\n Music genre is: " +
-            band.musicGenre + ".\n Performance duration is: " + band.performanceDuration + ".", "success", {
-                button: false,
-            });
+            band.musicGenre + ".\n Performance duration is: " + band.performanceDuration + ".", "success");
         return band;
     }
 
-    function Program(performanceDate) {
-        this.performanceDate = performanceDate;
+    function Program(day, band) {
+        this.day = day;
+        this.band = band;
     }
 
-    function addProgram(performanceDate) {
-        var program = new Program(performanceDate);
+    function addProgram(day, band) {
+        var program = new Program(day, band);
         data.programs.push(program);
-        swal("New program is created!", "\n" + program.performanceDate + "\n ", "success", {
-            button: false,
-        });
+        swal("Band " + band.bandName + "will perform on " + day, "success");
         return program;
     }
 
+    /* Adding values in an array */
     const resultObj = {};
-
+    resultObj.addFestival = addFestival;
     resultObj.addBand = addBand;
     resultObj.addProgram = addProgram;
-
     return resultObj;
 })();
 
 const UIController = (function () {
     const DOMStrings = {
-        inputBName: "bandName",
-        inputMGenre: "musicGenre",
-        inputPDuration: "performanceDuration",
-        containerError: "bandError",
-        buttonAddBand: "btnBand",
-        inputPDate: "performanceDate",
-        buttonAddProgram: "btnProgram",
-        inputAddBandToProgram: "bands",
-        buttonAddBandToProgram: "btnAddBandToProgram",
-        inputSelectProgram: "selectProgram",
-        inputAddProgrToFestival: "programToFestival",
         inputFName: "festivalName",
         inputCountry: "country",
         inputCity: "city",
+        inputStartDate: "startDate",
+        inputEndDate: "endDate",
         buttonAddFestival: "btnFestival",
-        formElement: "form"
+        formElement: "form",
+        inputBName: "bandName",
+        inputMGenre: "musicGenre",
+        inputPDuration: "performanceDuration",
+        buttonAddBand: "btnBand",
+        inputSelectDay: "selectFestivalDay",
+        inputSelectBand: "bands",
+        buttonAddProgram: "btnProgram",
+        buttonAddBandToFestival: "btnProgram"
+
+    };
+
+    function handleFestivalDates() {
+        document.getElementById(DOMStrings.inputStartDate).addEventListener("change", (event) => {
+            const startDateValue = event.target.value;
+            const endDateValue = document.getElementById(DOMStrings.inputEndDate);
+            const maxEndDateValue = moment(startDateValue, 'YYYY-MM-DD').add(2, 'days').format('YYYY-MM-DD');
+            endDateValue.disabled = false;
+            endDateValue.setAttribute('min', startDateValue);
+            endDateValue.setAttribute('max', maxEndDateValue);
+        })
     };
 
     function collectInput() {
+        /* Festival */
+        const fNameElement = document.getElementById(DOMStrings.inputFName);
+        const countryElement = document.getElementById(DOMStrings.inputCountry);
+        const cityElement = document.getElementById(DOMStrings.inputCity);
+        const startDateElement = document.getElementById(DOMStrings.inputStartDate);
+        const endDateElement = document.getElementById(DOMStrings.inputEndDate);
         /* Band */
         const bNameElement = document.getElementById(DOMStrings.inputBName);
         const mGenreElement = document.getElementById(DOMStrings.inputMGenre);
         const mGenreOption = mGenreElement.options[mGenreElement.selectedIndex].text;
         const pDurationElement = document.getElementById(DOMStrings.inputPDuration);
-        const containerErrorElement = document.getElementById(DOMStrings.containerError).textContent;
         /* Program */
-        const pDateElement = document.getElementById(DOMStrings.inputPDate);
-        const selectProgramElement = document.getElementById(DOMStrings.inputSelectProgram);
-        const addBandToProgramElement = document.getElementById(DOMStrings.inputAddBandToProgram);
-        /* Festival */
-        const addProgrToFestivalElement = document.getElementById(DOMStrings.inputAddProgrToFestival);
-        const fNameElement = document.getElementById(DOMStrings.inputFName);
-        const countryElement = document.getElementById(DOMStrings.inputCountry);
-        const cityElement = document.getElementById(DOMStrings.inputCity);
+        const desiredDayElement = document.getElementById(DOMStrings.inputSelectDay);
+        const desiredDayOption = desiredDayElement.options[desiredDayElement.selectedIndex].text;
+        const selectBandElement = document.getElementById(DOMStrings.inputSelectBand);
+        const selectBandOption = selectBandElement.options[selectBandElement.selectedIndex].text;
 
         const result = {
+            fName: fNameElement.value,
+            country: countryElement.value,
+            city: cityElement.value,
+            startDate: startDateElement.value,
+            endDate: endDateElement.value,
             bName: bNameElement.value,
             mGenre: mGenreOption,
             pDuration: pDurationElement.value,
-            errorMsgContainer: containerErrorElement,
-            pDate: pDateElement.value,
-            selectProgramElement: selectProgramElement.value,
-            addBandToProgram: addBandToProgramElement.value,
-            addProgramToFestival: addProgrToFestivalElement.value,
-            fName: fNameElement.value,
-            country: countryElement.value,
-            city: cityElement.value
+            desiredDay: desiredDayOption,
+            selectedBand: selectBandOption.value,
         };
         return result;
     }
@@ -103,33 +132,56 @@ const UIController = (function () {
         newListElement.textContent = band.bandName;
     };
 
-    function addProgramToList(program) {
-        console.log("Add the following program to list " + program.performanceDate);
-        const newListElement = document.createElement("option");
-        document.getElementById("selectProgram").appendChild(newListElement);
-        newListElement.textContent = program.performanceDate;
-    };
-
     function clearFormInputs() {
         document.querySelector(DOMStrings.formElement).reset();
     }
 
-    function showError(input) {
+    function showProgramSection() {
+        document.getElementById("programSection").classList.add("visible");
+    }
+
+    function validateBandData(input) {
         var errorMsg = '';
         if (!input.bName) {
-            errorMsg = 'Enter band name';
+            errorMsg = 'Please enter band name';
         } else if (!input.mGenre || input.mGenre == "Select genre") {
-            errorMsg = 'Enter genre';
+            errorMsg = 'Please enter genre';
         } else if (!input.pDuration) {
-            errorMsg = 'Enter performance duration';
+            errorMsg = 'Please enter performance duration';
         } else {
             errorMsg = 'Unknown error';
         }
 
-        document.getElementById(DOMStrings.containerError).textContent = errorMsg;
+        swal("", errorMsg, "warning");
     }
 
-    //in order not to change the object itself, but rather to get its copy
+    function validateAddBandToFestival(input) {
+        var errorMessage = '';
+        if (!input.desiredDay || input.desiredDay == "Please select desired day" || input.desiredDay == "none") {
+            errorMessage = 'Please select day!';
+        } else if (!input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none") {
+            errorMessage = 'Please select band! ';
+        }
+        swal("", errorMessage, "warning");
+
+    }
+
+    function validateFestivalData(input) {
+        var errorMessage = '';
+        if (!input.fName) {
+            errorMessage = 'Please enter festival name!';
+        } else if (!input.country) {
+            errorMessage = 'Please enter country name!';
+        } else if (!input.city) {
+            errorMessage = 'Please enter city!';
+        } else {
+            errorMessage = 'Unknown error';
+        }
+
+        swal("", errorMessage, "warning");
+    }
+
+    // In order not to change the object itself, but rather to get its copy
     function getDOMStrings() {
         return DOMStrings;
     }
@@ -137,33 +189,34 @@ const UIController = (function () {
     return {
         getInput: collectInput, // input fields value
         addBandToList: addBandToList,
-        addProgramToList: addProgramToList,
         getDOMStrings: getDOMStrings, // paths
         clearFormInputs: clearFormInputs,
-        showError: showError,
+        validateBandData: validateBandData,
+        validateAddBandToFestival: validateAddBandToFestival,
+        validateFestivalData: validateFestivalData,
+        showProgramSection: showProgramSection,
+        handleFestivalDates: handleFestivalDates
     };
 })();
 
 const mainController = (function (dataCtrl, UICtrl) {
     function setupEventListeners() {
         const DOM = UICtrl.getDOMStrings();
+        document.getElementById(DOM.buttonAddFestival).addEventListener("click", function () {
+            console.log('CLICKED ON BUTTON TO ADD A FESTIVAL AND CALLING ctrlAddFestival() FUNCTION');
+            ctrlAddFestival();
+        });
         document.getElementById(DOM.buttonAddBand).addEventListener("click", function () {
-            console.log('CLICKED ON BUTTON TO ADD A NEW BAND AND CALLING addBand FUNCTION');
+            console.log('CLICKED ON BUTTON TO ADD A NEW BAND AND CALLING addBand() FUNCTION');
             ctrlAddBand();
-
         });
 
         document.getElementById(DOM.buttonAddProgram).addEventListener("click", function () {
-            console.log('CLICKED ON BUTTON TO ADD A NEW PROGRAM AND CALLING addProgram FUNCTION');
+            console.log('CLICKED ON BUTTON TO ADD A NEW PROGRAM AND CALLING addProgram() FUNCTION');
             ctrlAddProgram();
         });
 
-        document.getElementById(DOM.buttonAddBandToProgram).addEventListener("click", function () {
-            ctrlbtnAddBandToProgram();
-        });
-        document.getElementById(DOM.buttonAddFestival).addEventListener("click", function () {
-            ctrlAddFestival();
-        });
+        UICtrl.handleFestivalDates();
     }
 
     function ctrlAddBand() {
@@ -172,11 +225,8 @@ const mainController = (function (dataCtrl, UICtrl) {
 
         // Validate form
         if (!input.bName || input.mGenre == "none" || input.mGenre == "Select genre" || !input.pDuration) {
-            UICtrl.showError(input);
-            return;
+            return UICtrl.validateBandData(input);
         }
-
-
 
         // Add band to list
         const band = dataCtrl.addBand(input.bName, input.mGenre, input.pDuration);
@@ -186,21 +236,27 @@ const mainController = (function (dataCtrl, UICtrl) {
 
         //4. Add band to a list
         UICtrl.addBandToList(band);
-    }
+    };
 
     function ctrlAddProgram() {
         const input = UICtrl.getInput();
-        const date = new Date(input.pDate);
-        const program = dataCtrl.addProgram(date.toDateString());
+        if (!input.desiredDay || !input.selectedBand || input.selectedBand == "Select band" || input.selectedBand == "none" ||
+            input.desiredDay == "none" || input.desiredDay == "Please select desired day") {
+            return UICtrl.validateAddBandToFestival(input);
+        }
 
         UICtrl.clearFormInputs();
-
-        // Add a program to Add Band to Program section
-        UICtrl.addProgramToList(program);
     }
 
-    function ctrlbtnAddBandToProgram() {
-        
+    function ctrlAddFestival() {
+        const input = UICtrl.getInput();
+        if (!input.fName || !input.country || !input.city) {
+            return UICtrl.validateFestivalData(input);
+        }
+
+        UICtrl.showProgramSection();
+        UICtrl.clearFormInputs();
+        dataCtrl.addFestival(input.fName, input.country, input.city, input.startDate, input.endDate);
     }
 
     return {
@@ -209,6 +265,7 @@ const mainController = (function (dataCtrl, UICtrl) {
             setupEventListeners();
         }
     };
+
 })(dataController, UIController);
 
 mainController.init();
