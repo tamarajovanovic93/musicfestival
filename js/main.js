@@ -308,9 +308,23 @@ const mainController = (function (dataCtrl, UICtrl) {
             return UICtrl.validateFestivalData(input);
         }
 
-        UICtrl.showProgramSection();
-        UICtrl.clearFormInputs();
+        (function () {
+            let date1 = new Date(input.startDate);
+            let date2 = new Date(input.endDate);
+            const diffDays = (date2.getDate() - date1.getDate());
+            console.log(diffDays);
+            date1 = moment(date1, 'DD-MM-YYYY').format('DD-MM-YYYY');
+            date2 = moment(date2, 'DD-MM-YYYY').format('DD-MM-YYYY');
+            for (let i = 0; i < diffDays; i++) {
+                const option = document.createElement("option");
+                option.value = moment(date1, 'DD-MM-YYYY').add(i, 'days').format('DD-MM-YYYY');
+                document.getElementById("selectFestivalDay").appendChild(option);
+                option.textContent = option.value;
+            }
+        })();
         dataCtrl.addFestival(input.fName, input.country, input.city, input.startDate, input.endDate);
+        UICtrl.clearFormInputs();
+        UICtrl.showProgramSection();
     }
 
     return {
