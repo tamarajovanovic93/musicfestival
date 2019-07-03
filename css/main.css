@@ -21,7 +21,6 @@ body {
     color: #606468;
     font: 87.5%/1.5em 'Open Sans', sans-serif;
     margin: 0;
-    /* background-image: url(../img/bg.jpg); */
     background-size: cover;
 }
 
@@ -244,6 +243,11 @@ a:active {
     display: inline-block;
     margin-top: 2em;
     margin-left: 5em;
+    margin-right: 5em;
+}
+
+li {
+    margin-left: 45%
 }
 
 fieldset {
@@ -275,7 +279,8 @@ input[type=number] {
 }
 
 #programSection {
-    display: none;
+    margin-bottom: 45%;
+    /* display: none; */
 }
 
 #programSection.visible {

@@ -20,8 +20,10 @@
                     <input type="text" id="festivalName" placeholder="Festival Name">
                     <input type="text" id="country" placeholder="Country">
                     <input type="text" id="city" placeholder="City">
-                    <input type="date" id="startDate" placeholder="Enter start date in format:  ">
-                    <input type="date" id="endDate" placeholder="Enter end date in format:  " disabled>
+                    <label for="startDate">Enter start date</label>
+                    <input type="date" id="startDate">
+                    <label for="endDate">Enter end date</label>
+                    <input type="date" id="endDate" disabled>
                     <input type="button" id="btnFestival" value="Create Festival">
                 </fieldset>
                 <div id="programSection">
@@ -37,7 +39,7 @@
                             <option value="">Pop</option>
                             <option value="">Rock</option>
                         </select>
-                        <input type="number" id="performanceDuration" placeholder="Performance Duration">
+                        <input type="number" id="performanceDuration" placeholder="Performance Duration (in minutes)">
                         <div id="bandError" class="error"></div>
                         <input type="button" id="btnBand" value="Create Band">
                     </fieldset>
@@ -55,7 +57,7 @@
                 </div>
             </form>
         </div>
-        <input id="view-festival" type="button" class="classy-btn" value="VIEW FESTIVAL PROGRAMME"></input>
+        <input id="viewFestival" type="button" class="classy-btn" value="VIEW FESTIVAL PROGRAMME"></input>
     </div>
     <div id="preview">
     </div>
